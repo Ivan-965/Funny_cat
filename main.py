@@ -4,6 +4,7 @@ import telebot
 
 from handlers.start import start
 from handlers.actions import handle_action
+from handlers.history import show_history
 
 load_dotenv()
 BOT_TOKEN = os.getenv("TOKEN")
@@ -14,6 +15,11 @@ bot = telebot.TeleBot(BOT_TOKEN)
 @bot.message_handler(commands=['start'])
 def handle_start(message):
     start(bot, message)
+
+
+@bot.message_handler(func=lambda msg: msg.text == "История выбора 📜")
+def handle_message(message):
+    show_history(bot, message)
 
 
 @bot.message_handler(func=lambda msg: True)
